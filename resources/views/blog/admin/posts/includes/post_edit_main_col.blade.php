@@ -67,10 +67,10 @@
                         <div class="form-group">
                             <label for="slug">Идентификатор</label>
                             <input name="slug"
-                                      id="slug"
-                                      type="text"
-                                      class="form-control">
-                                {{ old('content_raw', $item->slug) }}
+                                  id="slug"
+                                  type="text"
+                                  class="form-control"
+                                  value="{{ old('content_raw', $item->slug) }}">
                         </div>
 
                         <div class="form-group">
@@ -93,7 +93,7 @@
                                    type="checkbox"
                                    id="is_published"
                                    class="form-check-input"
-                                    value="{{ $item->is_published }}"
+                                    value="1"
                                     @if($item->is_published)
                                     checked="checked"
                                     @endif
