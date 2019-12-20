@@ -61,13 +61,14 @@ class CategoryController extends BaseController
     public function store(BlogCategoryCreateRequest $request)
     {
         $data = $request->input();
-        if (empty($data['slug'])) {
-            $data['slug'] = \Str::slug($data['title']);
-        }
 
-        /* Создаст объект, но не добавит в БД
-        $item = new BlogCategory($data);
-        $item->save();*/
+        /*
+         * // Ушло в обсервер
+         * if (empty($data['slug'])) {
+            $data['slug'] = \Str::slug($data['title']);
+        }*/
+
+        // Создаст объект, но не добавит в БД
 
         $item = (new BlogCategory())->create($data);
 
@@ -103,31 +104,12 @@ class CategoryController extends BaseController
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  BlogCategoryUpdateRequest  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function update(BlogCategoryUpdateRequest $request, $id)
     {
-       /* $rules = [
-            'title' => 'required|min:5|max:200',
-            'slug' => 'max:200',
-            'description' => 'string|max:500|min:3',
-            'parent_id' => 'required|integer|exists:blog_categories,id'
-        ];*/
-
-      /*  $validatedData = $this->validate($request, $rules);
-
-        $validatedData = $request->validate($rules);*/
-
-        /*$validator = \Validator::make($request->all(), $rules);
-        $validatedData[] = $validator->passes();
-        $validatedData[] = $validator->validate();
-        $validatedData[] = $validator->valid();
-        $validatedData[] = $validator->failed();
-        $validatedData[] = $validator->errors();
-        $validatedData[] = $validator->fails();*/
-
         $item = $this->blogCategoryRepository->getEdit($id);
 
         if(empty($item)) {
@@ -138,9 +120,11 @@ class CategoryController extends BaseController
 
         $data = $request->all();
 
-        if (empty($data['slug'])) {
+        /*
+         * // Ушло в обсервер
+         * if (empty($data['slug'])) {
             $data['slug'] = str_slug($data['title']);
-        }
+        }*/
 
         $result = $item->update($data);
 
