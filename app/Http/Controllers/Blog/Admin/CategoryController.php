@@ -33,7 +33,7 @@ class CategoryController extends BaseController
     public function index()
     {
         // $paginator = BlogCategory::paginate(15);
-        $paginator = $this->blogCategoryRepository->getAllWithPaginate(5);
+        $paginator = $this->blogCategoryRepository->getAllWithPaginate(25);
         return view('blog.admin.categories.index', compact('paginator'));
     }
 
@@ -61,14 +61,6 @@ class CategoryController extends BaseController
     public function store(BlogCategoryCreateRequest $request)
     {
         $data = $request->input();
-
-        /*
-         * // Ушло в обсервер
-         * if (empty($data['slug'])) {
-            $data['slug'] = \Str::slug($data['title']);
-        }*/
-
-        // Создаст объект, но не добавит в БД
 
         $item = (new BlogCategory())->create($data);
 
@@ -119,12 +111,6 @@ class CategoryController extends BaseController
         }
 
         $data = $request->all();
-
-        /*
-         * // Ушло в обсервер
-         * if (empty($data['slug'])) {
-            $data['slug'] = str_slug($data['title']);
-        }*/
 
         $result = $item->update($data);
 

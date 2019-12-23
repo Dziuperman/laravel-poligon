@@ -71,6 +71,10 @@ class BlogCategoryRepository extends CoreRepository
         $result = $this
             ->startConditions()
             ->select($columns)
+            // Получаем сразу все id, title родительских категорий
+            ->with([
+                'parentCategory:id,title',
+            ])
             ->paginate($perPage);
 
         return $result;
